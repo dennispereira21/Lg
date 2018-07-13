@@ -30,7 +30,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <strong>Email: </strong>info@yourdomain.com
+                    <img class="img-rounded" width="5%" src="/storage/profile/{{Auth::user()->profile}}">
                     &nbsp;&nbsp;
                     <strong>Usuario: </strong>{{ Auth::user()->name }}
                 </div>
@@ -44,7 +44,16 @@
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav navbar-right">
                             <li><a href="#">Usuarios</a></li>
-                            <li><a href="{{ route('logout') }}">Cerrar Sesión</a></li>
+                            <li>
+                                <a href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
+                                             document.getElementById('logout-form').submit();">
+                                    Cerrar Sesión
+                                </a>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    {{ csrf_field() }}
+                                </form>                                
+                            </li>
                         </ul>
                     </div>
                 </div>
