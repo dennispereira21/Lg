@@ -3,6 +3,7 @@
 namespace Login\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Login\User;
 
 class HomeController extends Controller
 {
@@ -21,8 +22,11 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('home');
+        $request->user()->authorizeRoles(['user', 'admin']);
+        $users=User::orderBY('id','desc')->paginate(4);
+        return view('home', compact('users'));
     }
+
 }

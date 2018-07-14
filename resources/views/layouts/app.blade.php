@@ -33,6 +33,16 @@
                     <img class="img-rounded" width="5%" src="/storage/profile/{{Auth::user()->profile}}">
                     &nbsp;&nbsp;
                     <strong>Usuario: </strong>{{ Auth::user()->name }}
+                    &nbsp;&nbsp;
+                   <strong> <a style="color:#FFF;" href="{{ route('logout') }}"
+                        onclick="event.preventDefault();
+                                 document.getElementById('logout-form').submit();">
+                        Cerrar Sesión
+                    </a>
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </strong>
                 </div>
             </div>
         </div>
@@ -42,18 +52,9 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="navbar-collapse collapse ">
-                        <ul id="menu-top" class="nav navbar-nav navbar-right">
-                            <li><a href="#">Usuarios</a></li>
-                            <li>
-                                <a href="{{ route('logout') }}"
-                                    onclick="event.preventDefault();
-                                             document.getElementById('logout-form').submit();">
-                                    Cerrar Sesión
-                                </a>
-                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                    {{ csrf_field() }}
-                                </form>                                
-                            </li>
+                        <ul id="menu-top" class="nav navbar-nav">
+                            <li><a href="{{ route('home') }}">Inicio</a></li>
+                            <li><a href="{{ route('home') }}">Perfil</a></li>
                         </ul>
                     </div>
                 </div>
