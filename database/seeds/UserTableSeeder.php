@@ -22,20 +22,22 @@ class UserTableSeeder extends Seeder
         for ($i=0; $i < 10; $i++) {
             $user 			= new User();
             $user->name 	= $faker->name;
-            $user->email 	= $faker->unique()->safeEmail;
+            $user->email    = $faker->unique()->safeEmail;
+            $user->username	= $faker->unique()->firstNameMale;
             $user->password = bcrypt('secret');
     		$user->profile  = 'Avatar.png';
             $user->save();
             $user->roles()->attach($role_user);
         }
 
-        // Usuario por Defecto
-        $user 			= new User();
-        $user->name 	= 'Admin';
-        $user->email 	= 'admin@gmail.com';
-        $user->password = bcrypt('secret');
-        $user->profile  = 'Avatar.png';	
-        $user->save();
-        $user->roles()->attach($role_admin);
+            // Usuario por Defecto
+            $user 			= new User();
+            $user->name 	= 'Admin';
+            $user->email    = 'admin@gmail.com';
+            $user->username	= 'admin';
+            $user->password = bcrypt('secret');
+            $user->profile  = 'Avatar.png';	
+            $user->save();
+            $user->roles()->attach($role_admin);
     }
 }
