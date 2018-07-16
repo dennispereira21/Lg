@@ -54,7 +54,7 @@
                     <div class="navbar-collapse collapse ">
                         <ul id="menu-top" class="nav navbar-nav">
                             <li><a href="{{ route('home') }}">Inicio</a></li>
-                            <li><a href="{{ route('home') }}">Perfil</a></li>
+                            <li><a href="{{ route('perfile.edit',Auth::user()->id) }}">Perfil</a></li>
                         </ul>
                     </div>
                 </div>
@@ -62,7 +62,7 @@
         </div>
     </section>
     @endguest
-     <div class="container-fluir">
+     <div class="content-wrapper">
         @yield('content')
     </div>
     <footer>

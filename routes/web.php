@@ -19,3 +19,4 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::resource('/users','SignupController')->middleware('auth', 'role:admin');
+Route::resource('/perfile','PerfileController');
