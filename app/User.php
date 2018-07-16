@@ -55,4 +55,8 @@ class User extends Authenticatable
     return false;
     }
 
+    public static function part($mail){
+        return $username = explode("@",$mail);
+    }
+
 }
