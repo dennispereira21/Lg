@@ -27,18 +27,8 @@ class PerfileController extends Controller
      */
     public function create()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        $users=User::orderBY('id','desc')->paginate(4);
+        return view('home', compact('users'));
     }
 
     /**
@@ -80,7 +70,58 @@ class PerfileController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name'      => 'required|string|max:255',
+            'email'     => 'required|email|unique:users,email,'.$id,
+            'profile'   => 'image|nullable|max:1999',
+            'password'  => 'nullable|min:6',
+        ]);
+        // Como actualizar la imagen remplazando a la anterior
+        // Como saber cuando la contraseña es vacia para actualizar
+        $password= "";
+        $newname = "";
+        if (!empty($request['password'])) {
+            
+            $password = bcrypt($request['password']); ;
+        }
+
+        if ($request->hasFile('profile')) {
+            $nameext    = $request->file('profile')->getClientOriginalName();
+            $name       = pathinfo($nameext, PATHINFO_FILENAME);
+            $ext        = $request->file('profile')->getClientOriginalExtension();
+            $newname    = $name.time().'.'.$ext;
+            $path       = $request->file('profile')->storeAs('public/profile', $newname);
+        }
+
+        if (empty($password) AND empty($newname)) {
+            User::find($id)->update([
+                'name'          => $request['name'],
+                'email'         => $request['email'],
+            ]);
+        }elseif (!empty($password) AND empty($newname) ) {
+            User::find($id)->update([
+                'name'          => $request['name'],
+                'email'         => $request['email'],
+                'password'      => $password,
+            ]);
+        }elseif (empty($password) AND !empty($newname)) {
+            User::find($id)->update([
+                'name'          => $request['name'],
+                'email'         => $request['email'],
+                'profile'       => $newname,
+            ]);
+        }else{
+            User::find($id)->update([
+                'name'          => $request['name'],
+                'email'         => $request['email'],
+                'password'      => $password,
+                'profile'       => $newname,
+            ]);
+        }
+
+
+        Session::flash('success','Perfil Actualizado Exitosamente');
+        return Redirect::to('home'); 
     }
 
     /**
