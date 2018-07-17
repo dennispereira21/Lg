@@ -51,7 +51,10 @@
                                                 <td class="text-center">{{ $user->email }}</td>
                                                 @if(Auth::user()->hasRole('admin'))
                                                 <td class="text-center">
+                                                    {!! Form::open(['route'=>['users.destroy', $user->id], 'id'=>'form-id', 'method'=>'DELETE']) !!}
                                                     <a href="{{ route('users.edit',$user->id) }}" type="button" class="btn btn-info">Editar</a>
+                                                            {!! Form::button('Delete', ['class'=>'btn btn-danger', 'type'=>'submit']) !!}
+                                                  {!! Form::close() !!}
                                                     
                                                 </td>
                                                 @endif

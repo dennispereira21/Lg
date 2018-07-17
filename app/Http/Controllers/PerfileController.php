@@ -76,8 +76,6 @@ class PerfileController extends Controller
             'profile'   => 'image|nullable|max:1999',
             'password'  => 'nullable|min:6',
         ]);
-        // Como actualizar la imagen remplazando a la anterior
-        // Como saber cuando la contraseña es vacia para actualizar
         $password= "";
         $newname = "";
         if (!empty($request['password'])) {
